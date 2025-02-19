@@ -1,0 +1,120 @@
+{
+    "dashboard": {
+      "id": null,
+      "uid": "fraud-detection-dashboard",
+      "title": "Real-Time Fraud Detection Dashboard",
+      "tags": ["fraud detection", "real-time", "monitoring"],
+      "timezone": "browser",
+      "schemaVersion": 26,
+      "version": 1,
+      "refresh": "5s",
+      "panels": [
+        {
+          "type": "graph",
+          "title": "Flagged Transactions",
+          "targets": [
+            {
+              "target": "sum(flagged_transactions)",
+              "refId": "A",
+              "metric": "flagged_transactions",
+              "intervalMs": 1000,
+              "datasource": {
+                "type": "postgres",
+                "uid": "fraud-db"
+              }
+            }
+          ],
+          "xaxis": {
+            "mode": "time"
+          },
+          "yaxis": {
+            "format": "short"
+          },
+          "gridPos": {
+            "x": 0,
+            "y": 0,
+            "w": 8,
+            "h": 4
+          }
+        },
+        {
+          "type": "graph",
+          "title": "Transaction Processing Time",
+          "targets": [
+            {
+              "target": "avg(transaction_processing_time)",
+              "refId": "B",
+              "metric": "transaction_processing_time",
+              "intervalMs": 1000,
+              "datasource": {
+                "type": "postgres",
+                "uid": "fraud-db"
+              }
+            }
+          ],
+          "xaxis": {
+            "mode": "time"
+          },
+          "yaxis": {
+            "format": "seconds"
+          },
+          "gridPos": {
+            "x": 8,
+            "y": 0,
+            "w": 8,
+            "h": 4
+          }
+        },
+        {
+          "type": "piechart",
+          "title": "Anomaly Detection Results",
+          "targets": [
+            {
+              "target": "sum(anomalous_transactions)",
+              "refId": "C",
+              "metric": "anomalous_transactions",
+              "intervalMs": 1000,
+              "datasource": {
+                "type": "postgres",
+                "uid": "fraud-db"
+              }
+            }
+          ],
+          "gridPos": {
+            "x": 0,
+            "y": 4,
+            "w": 4,
+            "h": 4
+          }
+        },
+        {
+          "type": "table",
+          "title": "Recent Flagged Transactions",
+          "targets": [
+            {
+              "target": "SELECT transaction_id, user_id, amount, timestamp FROM flagged_transactions ORDER BY timestamp DESC LIMIT 10",
+              "refId": "D",
+              "datasource": {
+                "type": "postgres",
+                "uid": "fraud-db"
+              }
+            }
+          ],
+          "columns": [
+            { "text": "Transaction ID", "value": "transaction_id" },
+            { "text": "User ID", "value": "user_id" },
+            { "text": "Amount", "value": "amount" },
+            { "text": "Timestamp", "value": "timestamp" }
+          ],
+          "gridPos": {
+            "x": 4,
+            "y": 4,
+            "w": 12,
+            "h": 6
+          }
+        }
+      ]
+    },
+    "overwrite": true
+  }
+  

@@ -1,0 +1,5 @@
+pyspark
+scikit-learn
+psycopg2
+kafka-python
+grafana-api
