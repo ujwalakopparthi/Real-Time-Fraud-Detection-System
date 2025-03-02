@@ -29,7 +29,7 @@ Before running the project, make sure you have the following installed:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/fraud-detection-system.git
+   git clone https://github.com/ujwalakopparthi/fraud-detection-system.git
    cd fraud-detection-system
 2. Install the dependencies:
     pip install -r requirements.txt
